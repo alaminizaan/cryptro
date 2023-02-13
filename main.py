@@ -52,8 +52,8 @@ async def trade_arbitrage():
             binance_order_size = np.minimum(binance_depth['asks'][0][1], kucoin_depth['bids'][0][1])
             kucoin_order_size = binance_order_size
 
-            # Convert USDT to the base currency on Binance
-           await binance.create_order(symbol=f'{base_currency}/USDT', type='limit', side='sell', amount=binance_order_size, price=binance_price)
+        # Convert USDT to the base currency on Binance
+        await binance.create_order(symbol=f'{base_currency}/USDT', type='limit', side='sell', amount=binance_order_size, price=binance_price)
 
         # Buy EOS with the base currency on Kucoin
         await kucoin.create_order(symbol='EOS/USDT', type='limit', side='buy', amount=kucoin_order_size, price=kucoin_price)
