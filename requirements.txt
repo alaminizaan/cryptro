@@ -3,16 +3,6 @@ time
 numpy
 asyncio
 aiohttp
-pandas
-matplotlib
-scikit-learn
-scipy
-beautifulsoup4
 requests
 flask
 django
-gunicorn
-tensorflow
-pytest
-jupyter
-seaborn
