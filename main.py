@@ -85,3 +85,7 @@ async def trade_arbitrage():
 
         # Buy USDT with the base currency on Kucoin
         await kucoin.create_order(symbol=f'USDT/{base_currency}', type='limit', side='buy', amount=kucoin_order_size, price=kucoin_price)
+     else: 
+        print("Hello, World!")
+
+
