@@ -52,40 +52,40 @@ async def trade_arbitrage():
             binance_order_size = np.minimum(binance_depth['asks'][0][1], kucoin_depth['bids'][0][1])
             kucoin_order_size = binance_order_size
 
-        # Convert USDT to the base currency on Binance
-        await binance.create_order(symbol=f'{base_currency}/USDT', type='limit', side='sell', amount=binance_order_size, price=binance_price)
+            # Convert USDT to the base currency on Binance
+            await binance.create_order(symbol=f'{base_currency}/USDT', type='limit', side='sell', amount=binance_order_size, price=binance_price)
 
-        # Buy EOS with the base currency on Kucoin
-        await kucoin.create_order(symbol='EOS/USDT', type='limit', side='buy', amount=kucoin_order_size, price=kucoin_price)
+            # Buy EOS with the base currency on Kucoin
+            await kucoin.create_order(symbol='EOS/USDT', type='limit', side='buy', amount=kucoin_order_size, price=kucoin_price)
 
-        # Convert EOS to USDT on Binance
-        await binance.create_order(symbol='EOS/USDT', type='limit', side='sell', amount=kucoin_order_size, price=binance_price)
+            # Convert EOS to USDT on Binance
+            await binance.create_order(symbol='EOS/USDT', type='limit', side='sell', amount=kucoin_order_size, price=binance_price)
 
-        # Sell USDT for the base currency on Kucoin
-        await kucoin.create_order(symbol=f'{base_currency}/USDT', type='limit', side='buy', amount=kucoin_order_size, price=kucoin_price)
+            # Sell USDT for the base currency on Kucoin
+            await kucoin.create_order(symbol=f'{base_currency}/USDT', type='limit', side='buy', amount=kucoin_order_size, price=kucoin_price)
 
-    # Check if there is an arbitrage opportunity for a sell trade
-    elif spread < 0:
-        # Get the market depth for both exchanges asynchronously
-        binance_depth = await binance.fetch_order_book('EOS/USDT')
-        kucoin_depth = await kucoin.fetch_order_book('EOS/USDT')
+            # Check if there is an arbitrage opportunity for a sell trade
+        elif spread < 0:
+            # Get the market depth for both exchanges asynchronously
+            binance_depth = await binance.fetch_order_book('EOS/USDT')
+            kucoin_depth = await kucoin.fetch_order_book('EOS/USDT')
 
-        # Calculate the optimal order size to minimize slippage
-        binance_order_size = np.minimum(binance_depth['bids'][0][1], kucoin_depth['asks'][0][1])
-        kucoin_order_size = binance_order_size
+            # Calculate the optimal order size to minimize slippage
+            binance_order_size = np.minimum(binance_depth['bids'][0][1], kucoin_depth['asks'][0][1])
+            kucoin_order_size = binance_order_size
 
-        # Buy EOS with USDT on Binance
-        await binance.create_order(symbol='EOS/USDT', type='limit', side='buy', amount=binance_order_size, price=binance_price)
+            # Buy EOS with USDT on Binance
+            await binance.create_order(symbol='EOS/USDT', type='limit', side='buy', amount=binance_order_size, price=binance_price)
 
-        # Sell EOS for USDT on Kucoin
-        await kucoin.create_order(symbol='EOS/USDT', type='limit', side='sell', amount=kucoin_order_size, price=kucoin_price)
+            # Sell EOS for USDT on Kucoin
+            await kucoin.create_order(symbol='EOS/USDT', type='limit', side='sell', amount=kucoin_order_size, price=kucoin_price)
 
-        # Convert EOS to the base currency on Binance
-        await binance.create_order(symbol=f'EOS/{base_currency}', type='limit', side='sell', amount=binance_order_size, price=binance_price)
+            # Convert EOS to the base currency on Binance
+            await binance.create_order(symbol=f'EOS/{base_currency}', type='limit', side='sell', amount=binance_order_size, price=binance_price)
 
-        # Buy USDT with the base currency on Kucoin
-        await kucoin.create_order(symbol=f'USDT/{base_currency}', type='limit', side='buy', amount=kucoin_order_size, price=kucoin_price)
-     else: 
-        print("Hello, World!")
+            # Buy USDT with the base currency on Kucoin
+            await kucoin.create_order(symbol=f'USDT/{base_currency}', type='limit', side='buy', amount=kucoin_order_size, price=kucoin_price)
+        else: 
+            print("Hello, World!")
 
 
