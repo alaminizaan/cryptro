@@ -1,5 +1,4 @@
 ccxt
-time
 numpy
 asyncio
 aiohttp
